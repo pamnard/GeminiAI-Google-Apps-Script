@@ -24,16 +24,15 @@
 5. Добавьте ключ в Properties Service:
    ```javascript
    PropertiesService.getScriptProperties().setProperty(
-     "GEMINI_API_KEY",
-     "ваш_api_ключ"
+       "GEMINI_API_KEY",
+       "ваш_api_ключ"
    );
    ```
 
 ## 🔧 Базовое использование
 
 ```javascript
-const apiKey =
-  PropertiesService.getScriptProperties().getProperty("GEMINI_API_KEY");
+const apiKey = PropertiesService.getScriptProperties().getProperty("GEMINI_API_KEY");
 const gemini = new GeminiAI(apiKey);
 
 // Простая генерация текста
@@ -67,12 +66,12 @@ const result = gemini.generateText("Напиши короткий рассказ
 
 // С настройками
 const creative = gemini.generateText(
-  "Напиши стихотворение",
-  {
-    temperature: 0.9,
-    maxTokens: 500,
-  },
-  "gemini-1.5-pro"
+    "Напиши стихотворение",
+    {
+        temperature: 0.9,
+        maxTokens: 500,
+    },
+    "gemini-1.5-pro"
 );
 ```
 
@@ -92,9 +91,9 @@ const creative = gemini.generateText(
 
 ```javascript
 const messages = [
-  { role: "user", text: "Как тебя зовут?" },
-  { role: "model", text: "Меня зовут Gemini!" },
-  { role: "user", text: "Расскажи анекдот" },
+    { role: "user", text: "Как тебя зовут?" },
+    { role: "model", text: "Меня зовут Gemini!" },
+    { role: "user", text: "Расскажи анекдот" },
 ];
 
 const response = gemini.chat(messages);
@@ -136,15 +135,15 @@ const analysis = gemini.analyzeImage(imageBlob, "Опиши что на изоб
 
 ```javascript
 const result = gemini.generateImage("Кот в космосе среди звезд", {
-  temperature: 0.8,
+    temperature: 0.8,
 });
 
 // Сохранение в Drive
 if (result.images.length > 0) {
-  const fileId = gemini.saveImageToDrive(
-    result.images[0].data,
-    "space_cat.png"
-  );
+    const fileId = gemini.saveImageToDrive(
+        result.images[0].data,
+        "space_cat.png"
+    );
 }
 ```
 
@@ -175,7 +174,7 @@ const editResult = gemini.editImage(imageBlob, "Добавь солнечный 
 
 ```javascript
 const operationId = gemini.generateVideo("Кот играет с мячиком на траве", {
-  aspectRatio: "16:9",
+    aspectRatio: "16:9",
 });
 
 // Ожидание завершения
@@ -194,9 +193,9 @@ const result = gemini.waitForVideoGeneration(operationId);
 
 ```javascript
 const fileId = gemini.generateAndSaveVideo(
-  "Дракон летит над замком",
-  "dragon_video.mp4",
-  { aspectRatio: "16:9" }
+    "Дракон летит над замком",
+    "dragon_video.mp4",
+    { aspectRatio: "16:9" }
 );
 ```
 
@@ -238,8 +237,8 @@ const transcript = `
 `;
 
 const speakers = [
-  { speaker: "Анна", voiceName: "Leda" },
-  { speaker: "Петр", voiceName: "Puck" },
+    { speaker: "Анна", voiceName: "Leda" },
+    { speaker: "Петр", voiceName: "Puck" },
 ];
 
 const audioData = gemini.generateMultiSpeakerSpeech(transcript, speakers);
@@ -273,22 +272,22 @@ const audioData = gemini.generateMultiSpeakerSpeech(transcript, speakers);
 ```javascript
 // Создание схемы
 const productSchema = gemini.createSchema("ARRAY", {
-  items: gemini.createSchema("OBJECT", {
-    properties: {
-      name: gemini.createSchema("STRING"),
-      price: gemini.createSchema("NUMBER"),
-      category: gemini.createSchema("STRING", {
-        enum: ["ELECTRONICS", "CLOTHING", "BOOKS"],
-      }),
-    },
-    required: ["name", "price"],
-  }),
+    items: gemini.createSchema("OBJECT", {
+        properties: {
+            name: gemini.createSchema("STRING"),
+            price: gemini.createSchema("NUMBER"),
+            category: gemini.createSchema("STRING", {
+                enum: ["ELECTRONICS", "CLOTHING", "BOOKS"],
+            }),
+        },
+        required: ["name", "price"],
+    }),
 });
 
 // Генерация структурированных данных
 const products = gemini.generateStructured(
-  "Создай список из 3 товаров",
-  productSchema
+    "Создай список из 3 товаров",
+    productSchema
 );
 ```
 
@@ -311,24 +310,24 @@ const products = gemini.generateStructured(
 ```javascript
 // Объявление функции
 const weatherFunction = gemini.createFunctionDeclaration(
-  "get_weather",
-  "Получает погоду для города",
-  {
-    properties: {
-      city: { type: "string", description: "Название города" },
-    },
-    required: ["city"],
-  }
+    "get_weather",
+    "Получает погоду для города",
+    {
+        properties: {
+            city: { type: "string", description: "Название города" },
+        },
+        required: ["city"],
+    }
 );
 
 // Использование
 const response = gemini.generateWithFunctions("Какая погода в Москве?", [
-  weatherFunction,
+    weatherFunction,
 ]);
 
 if (response.functionCall) {
-  console.log("Вызов функции:", response.functionCall.name);
-  console.log("Аргументы:", response.functionCall.args);
+    console.log("Вызов функции:", response.functionCall.name);
+    console.log("Аргументы:", response.functionCall.args);
 }
 ```
 
@@ -346,7 +345,7 @@ if (response.functionCall) {
 
 ```javascript
 const response = gemini.generateWithCodeExecution(
-  "Найди сумму первых 10 простых чисел"
+    "Найди сумму первых 10 простых чисел"
 );
 
 console.log("Объяснение:", response.text);
@@ -402,35 +401,35 @@ console.log("Результат:", response.codeExecutionResults[0].output);
 
 ```javascript
 function createContentPipeline() {
-  const gemini = new GeminiAI(apiKey);
+    const gemini = new GeminiAI(apiKey);
 
-  // 1. Генерируем статью
-  const article = gemini.generateText(
-    "Напиши статью о важности кибербезопасности",
-    { temperature: 0.7 },
-    "gemini-1.5-pro"
-  );
+    // 1. Генерируем статью
+    const article = gemini.generateText(
+        "Напиши статью о важности кибербезопасности",
+        { temperature: 0.7 },
+        "gemini-1.5-pro"
+    );
 
-  // 2. Создаем пост для соцсетей
-  const socialPost = gemini.generateText(
-    "Сделай короткий пост для соцсетей: " + article,
-    { maxTokens: 100 }
-  );
+    // 2. Создаем пост для соцсетей
+    const socialPost = gemini.generateText(
+        "Сделай короткий пост для соцсетей: " + article,
+        { maxTokens: 100 }
+    );
 
-  // 3. Генерируем изображение
-  const imageResult = gemini.generateImage(
-    "Иллюстрация к статье о кибербезопасности"
-  );
+    // 3. Генерируем изображение
+    const imageResult = gemini.generateImage(
+        "Иллюстрация к статье о кибербезопасности"
+    );
 
-  // 4. Создаем аудиоверсию
-  const audioData = gemini.generateSpeech(article, "Charon");
+    // 4. Создаем аудиоверсию
+    const audioData = gemini.generateSpeech(article, "Charon");
 
-  return {
-    article,
-    socialPost,
-    imageId: gemini.saveImageToDrive(imageResult.images[0].data, "article.png"),
-    audioId: gemini.saveAudioToDrive(audioData, "article.wav"),
-  };
+    return {
+        article,
+        socialPost,
+        imageId: gemini.saveImageToDrive(imageResult.images[0].data, "article.png"),
+        audioId: gemini.saveAudioToDrive(audioData, "article.wav"),
+    };
 }
 ```
 
@@ -438,25 +437,25 @@ function createContentPipeline() {
 
 ```javascript
 function analyzeBusinessData() {
-  const gemini = new GeminiAI(apiKey);
+    const gemini = new GeminiAI(apiKey);
 
-  const salesData = "Продажи: Янв-1000, Фев-1200, Мар-900, Апр-1500";
+    const salesData = "Продажи: Янв-1000, Фев-1200, Мар-900, Апр-1500";
 
-  const analysis = gemini.analyzeData(
-    salesData,
-    "Найди тренды, создай график и дай рекомендации"
-  );
-
-  console.log("Анализ:", analysis.text);
-
-  // Сохраняем графики
-  analysis.images.forEach((image, index) => {
-    const blob = Utilities.newBlob(
-      Utilities.base64Decode(image.data),
-      image.mimeType
+    const analysis = gemini.analyzeData(
+        salesData,
+        "Найди тренды, создай график и дай рекомендации"
     );
-    DriveApp.createFile(blob.setName(`chart_${index}.png`));
-  });
+
+    console.log("Анализ:", analysis.text);
+
+    // Сохраняем графики
+    analysis.images.forEach((image, index) => {
+        const blob = Utilities.newBlob(
+            Utilities.base64Decode(image.data),
+            image.mimeType
+        );
+        DriveApp.createFile(blob.setName(`chart_${index}.png`));
+    });
 }
 ```
 
@@ -464,54 +463,54 @@ function analyzeBusinessData() {
 
 ```javascript
 function automateWorkflow() {
-  const gemini = new GeminiAI(apiKey);
+    const gemini = new GeminiAI(apiKey);
 
-  // Объявляем функции
-  const functions = [
-    gemini.createFunctionDeclaration("send_email", "Отправляет email", {
-      properties: {
-        to: { type: "string" },
-        subject: { type: "string" },
-        body: { type: "string" },
-      },
-    }),
-    gemini.createFunctionDeclaration(
-      "create_calendar_event",
-      "Создает событие",
-      {
-        properties: {
-          title: { type: "string" },
-          date: { type: "string" },
-          time: { type: "string" },
+    // Объявляем функции
+    const functions = [
+        gemini.createFunctionDeclaration("send_email", "Отправляет email", {
+            properties: {
+                to: { type: "string" },
+                subject: { type: "string" },
+                body: { type: "string" },
+            },
+        }),
+        gemini.createFunctionDeclaration(
+            "create_calendar_event",
+            "Создает событие",
+            {
+                properties: {
+                    title: { type: "string" },
+                    date: { type: "string" },
+                    time: { type: "string" },
+                },
+            }
+        ),
+    ];
+
+    // Реализации функций
+    const implementations = {
+        send_email: (args) => {
+            GmailApp.sendEmail(args.to, args.subject, args.body);
+            return { success: true };
         },
-      }
-    ),
-  ];
+        create_calendar_event: (args) => {
+            const event = CalendarApp.getDefaultCalendar().createEvent(
+                args.title,
+                new Date(args.date + " " + args.time),
+                new Date(args.date + " " + args.time)
+            );
+            return { success: true, eventId: event.getId() };
+        },
+    };
 
-  // Реализации функций
-  const implementations = {
-    send_email: (args) => {
-      GmailApp.sendEmail(args.to, args.subject, args.body);
-      return { success: true };
-    },
-    create_calendar_event: (args) => {
-      const event = CalendarApp.getDefaultCalendar().createEvent(
-        args.title,
-        new Date(args.date + " " + args.time),
-        new Date(args.date + " " + args.time)
-      );
-      return { success: true, eventId: event.getId() };
-    },
-  };
+    // Автоматическое выполнение
+    const result = gemini.executeWithFunctions(
+        "Отправь письмо команде о встрече завтра в 14:00 и создай событие в календаре",
+        functions,
+        implementations
+    );
 
-  // Автоматическое выполнение
-  const result = gemini.executeWithFunctions(
-    "Отправь письмо команде о встрече завтра в 14:00 и создай событие в календаре",
-    functions,
-    implementations
-  );
-
-  return result;
+    return result;
 }
 ```
 
@@ -544,16 +543,16 @@ function automateWorkflow() {
 
 ```javascript
 try {
-  const result = gemini.generateText("Тест");
-  console.log(result);
+    const result = gemini.generateText("Тест");
+    console.log(result);
 } catch (error) {
-  if (error.message.includes("quota")) {
-    console.log("Превышен лимит запросов");
-  } else if (error.message.includes("safety")) {
-    console.log("Контент заблокирован фильтрами безопасности");
-  } else {
-    console.log("Ошибка:", error.message);
-  }
+    if (error.message.includes("quota")) {
+        console.log("Превышен лимит запросов");
+    } else if (error.message.includes("safety")) {
+        console.log("Контент заблокирован фильтрами безопасности");
+    } else {
+        console.log("Ошибка:", error.message);
+    }
 }
 ```
 
